@@ -1,0 +1,18 @@
+.game-container{
+    width:100vw;
+    min-height: 95vh;
+    background-color: var(--misc-two);
+}
+
+.gameplay {
+    width:100%;
+    padding: 3rem 3rem 3rem 3rem;
+
+}
+
+.gameplay img {
+    width:100%;
+    height:100%;
+    object-fit: contain;
+}
+

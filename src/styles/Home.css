@@ -1,0 +1,44 @@
+.game-links-all {
+    width:100vw;
+    height: 95vh;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr);
+    background-color: var(--misc-two);
+}
+.game-links-all a {
+    margin: 3rem 3rem 3rem 3rem;
+    position: relative;
+}
+
+.game-links-all a:nth-child(1) {
+    grid-area: 1/1/2/2;
+}
+.game-links-all a:nth-child(2) {
+    grid-area: 1/2/2/3;
+}
+
+.game-links-all a img {
+    width:100%;
+    height:100%;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background-color: var(--main-bckgnd);
+    overflow: hidden;
+    transition: 0.5s ease;
+}
+
+.game-1:hover > .overlay {
+    height: 100%;
+}
+.game-2:hover > .overlay {
+    height: 100%;
+}
+
