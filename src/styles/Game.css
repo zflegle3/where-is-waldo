@@ -38,6 +38,7 @@
     justify-content: flex-start;
     gap: .5rem;
     background-color: rgba(200, 200, 200, 0.75);
+    border-radius: .5rem;
     top: -70px;
     left: -130px;
 }

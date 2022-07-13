@@ -64,7 +64,7 @@ function Game(props) {
   }
 
   const logSelect = (e) => {
-    console.log(e.target.id);
+    console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
   }
 
 
