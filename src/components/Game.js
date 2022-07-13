@@ -16,10 +16,6 @@ function Game(props) {
     locStyle: {
       top: 0,
       left: 0,
-      border: "1px solid red",
-      borderRadius: "15px",
-      width: `${30}px`,
-      height: `${30}px`,
     },
     selected: false,
   });
@@ -33,8 +29,8 @@ function Game(props) {
     let xCoord = (e.pageX - e.target.offsetLeft)/ratio;
     let yCoord = (e.pageY - e.target.offsetTop)/ratio;
     //Coordinates for Screen Display (relative to absolute pos in gameplaydiv )
-    let xRel = e.pageX-(selectDiameter/2);
-    let yRel = e.pageY-e.target.parentElement.offsetTop-(selectDiameter/2);
+    let xRel = e.pageX;
+    let yRel = e.pageY-e.target.parentElement.offsetTop;
     //might need to also sort by click type (if add player type selection)
     //will need to update to make selectDiv location change with screen size change
 
@@ -50,10 +46,6 @@ function Game(props) {
         locStyle: {
           top: yRel,
           left: xRel,
-          border: "2px solid red",
-          borderRadius: "none",
-          width: `${selectDiameter}px`,
-          height: `${selectDiameter}px`,
         },
         selected: true,
       });
@@ -65,14 +57,14 @@ function Game(props) {
           locStyle: {
             top: 0,
             left: 0,
-            border: "none",
-            borderRadius: "none",
-            width: `0px`,
-            height: `0px`,
           },
           selected: false,
       });
     }
+  }
+
+  const logSelect = (e) => {
+    console.log(e.target.id);
   }
 
 
@@ -86,8 +78,14 @@ function Game(props) {
       <div className="game-container">
         <div className="gameplay">
           <img src={props.gameImg} alt="" onClick={logClick}></img>
-          <div className="select-div" style={selectDiv.locStyle}>Test</div>
-          {/* <div className="select-div" >Test</div> */}
+          <div className="select-div" style={selectDiv.locStyle}>
+            <div className="select-highlight"></div>
+            <div className="select-options">
+              <div className="select-waldo" id="waldo" onClick={logSelect}>Waldo</div>
+              <div className="select-waldo" id="whitebeard" onClick={logSelect}>Whitebeard</div>
+              <div className="select-Ols" id="odlaw" onClick={logSelect}>Odlaw</div>
+            </div>
+          </div>
         </div>
 
       </div>

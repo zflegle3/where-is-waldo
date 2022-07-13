@@ -19,7 +19,37 @@
 
 .select-div {
     position: absolute;
-    /* top: 30px;
-    left: 30px; */
+}
+
+.select-highlight {
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    border: 2px solid red;
+    top: -25px;
+    left: -25px;
+    overflow: visible;
+}
+
+.select-options {
+    position:absolute;
+    display: flex;
+    justify-content: flex-start;
+    gap: .5rem;
+    background-color: rgba(200, 200, 200, 0.75);
+    top: -70px;
+    left: -130px;
+}
+
+.select-options div {
+    font-size: 2rem;
+    padding: 0.75rem 0.75rem 0.75rem 0.75rem;
+    border-radius: .5rem;
+}
+
+.select-options div:hover {
+    background-color: rgba(50, 50, 50, 1);
+    color: white;
 }
 
