@@ -1,4 +1,7 @@
+/* eslint-disable default-case */
 import React, { useState, useEffect } from 'react';
+// import { doc, getDoc } from "firebase/firestore";
+import { collection, getDoc } from "firebase/firestore"; 
 // import {
 //     BrowserRouter as Router,
 //     Routes,
@@ -19,10 +22,24 @@ function Game(props) {
     },
     selected: false,
   });
-  const [value, setValue] = useState("");
+  const [waldoCoord, setWaldoCoord] = useState({
+    locX: 0,
+    locY: 0,
+  });
+  const [odlawCoord, setOdlawCoord] = useState({
+    locX: 0,
+    locY: 0,
+  });
+  const [whiteBCoord, setWhiteBCoord] = useState({
+    locX: 0,
+    locY: 0,
+  });
 
 
   const logClick = (e) => {
+    console.log(waldoCoord);
+    console.log(odlawCoord);
+    console.log(whiteBCoord);
     console.log(e);
     let ratio = e.target.height/e.target.naturalHeight;
     //Coordinates for Database Comparison (relative to real image size)
@@ -60,17 +77,53 @@ function Game(props) {
           },
           selected: false,
       });
-    }
-  }
+    };
+  };
 
   const logSelect = (e) => {
-    console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+    // console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+    let guessIn = e.target.id;
+    switch (guessIn) {
+      case "waldo":
+        console.log("Waldo is at",`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+        break;
+      case "odlaw":
+        console.log("Odlaw is at",`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+        break;
+      case "whitebeard":
+        console.log("Whitebeard is at",`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+        break;
+    };
+  };
+
+  async function pullWaldoData() {
+    const docSnap = await getDoc(props.gameData);
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      const dataAll = docSnap.data();
+      setWaldoCoord({
+          locX: dataAll.waldoX,
+          locY: dataAll.waldoY,
+      });
+      setOdlawCoord({
+        locX: dataAll.odlawX,
+        locY: dataAll.odlawY,
+      });
+      setWhiteBCoord({
+        locX: dataAll.whitebeardX,
+        locY: dataAll.whitebeardY,
+      });
+    } else {
+      console.log("No such document!");
+    }
   }
 
 
   useEffect(() => {
-    console.log("Update coordinates of div");
-  });
+    //pull in location data from firebase on page load
+    console.log("Pulling data from Database");
+    pullWaldoData();
+  },[]);
 
 
   if (selectDiv.selected) {
@@ -86,6 +139,13 @@ function Game(props) {
               <div className="select-Ols" id="odlaw" onClick={logSelect}>Odlaw</div>
             </div>
           </div>
+          <div className="score-div">
+            <div className="score-display">
+              <p>Waldo</p>
+              <p>Whitebeard</p>
+              <p>Odlaw</p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -95,6 +155,13 @@ function Game(props) {
       <div className="game-container">
         <div className="gameplay">
           <img src={props.gameImg} alt="" onClick={logClick}></img>
+          <div className="score-div">
+            <div className="score-display">
+              <p>Waldo</p>
+              <p>Whitebeard</p>
+              <p>Odlaw</p>
+            </div>
+          </div>
         </div>
       </div>
     );

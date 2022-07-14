@@ -63,6 +63,8 @@ Main Container Styles
   height: 5vh;
   display: flex;
   background-color: var(--sub-bckgnd);
+  /* position: fixed;
+  z-index: 10; */
 }
 .main-content {
   width: 100vw;
