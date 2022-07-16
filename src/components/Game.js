@@ -25,14 +25,17 @@ function Game(props) {
   const [waldoCoord, setWaldoCoord] = useState({
     locX: 0,
     locY: 0,
+    found: false,
   });
   const [odlawCoord, setOdlawCoord] = useState({
     locX: 0,
     locY: 0,
+    found: false,
   });
   const [whiteBCoord, setWhiteBCoord] = useState({
     locX: 0,
     locY: 0,
+    found: false,
   });
 
 
@@ -83,18 +86,48 @@ function Game(props) {
   const logSelect = (e) => {
     // console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
     let guessIn = e.target.id;
-    switch (guessIn) {
+    let checkCorrect = checkGuess(selectDiv.xSelect, selectDiv.ySelect,guessIn)
+    if (checkCorrect) {
+      //toggle div to correct
+      let updatingDiv = document.getElementById(`${e.target.id}-score`)
+      updatingDiv.classList.toggle("correct");
+      //update value to correct
+    }
+    //
+  };
+
+  const checkGuess = (xGuess, yGuess, guessId) => {
+    let correctX = 0;
+    let correctY = 0;
+
+    switch (guessId) {
       case "waldo":
-        console.log("Waldo is at",`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+        correctX = waldoCoord.locX;
+        correctY = waldoCoord.locY;
         break;
       case "odlaw":
-        console.log("Odlaw is at",`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+        correctX = odlawCoord.locX;
+        correctY = odlawCoord.locY;
         break;
       case "whitebeard":
-        console.log("Whitebeard is at",`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+        correctX = whiteBCoord.locX;
+        correctY = whiteBCoord.locY;
         break;
     };
-  };
+
+    let validX = (correctX+75 >= xGuess && xGuess >=correctX-75);
+    let validY = (correctY+75 >= yGuess && yGuess >=correctY-75);
+    console.log("X)",validX,"min:",correctX-75,"guess:",xGuess,"max:",correctX+75);
+    console.log("Y)",validY,"min:",correctY-75,"guess:",yGuess,"max:",correctY+75);
+    if (validX && validY) {
+      console.log("Correct")
+      return true;;
+    } else {
+      console.log("Incorrect");
+      return false;
+    }
+
+  }
 
   async function pullWaldoData() {
     const docSnap = await getDoc(props.gameData);
@@ -141,9 +174,9 @@ function Game(props) {
           </div>
           <div className="score-div">
             <div className="score-display">
-              <p>Waldo</p>
-              <p>Whitebeard</p>
-              <p>Odlaw</p>
+              <p id="waldo-score">Waldo</p>
+              <p id="whitebeard-score">Whitebeard</p>
+              <p id="odlaw-score">Odlaw</p>
             </div>
           </div>
         </div>

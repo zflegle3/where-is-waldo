@@ -31,6 +31,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const gameOneData = doc(db,"scoring/game-one");
+const gameTwoData = doc(db,"scoring/game-two");
 
 function App() {
 
@@ -61,7 +62,7 @@ function App() {
               <Route exact path="/" element={<Home gameImg1={gameImg1} gameImg2={gameImg2}/>}/>
               <Route exact path="/leaderboard" element={<Leaderboard/>}/>
               <Route exact path="/game-1" element={<Game gameImg={gameImg1} gameData={gameOneData}/>}/>
-              <Route exact path="/game-2" element={<Game gameImg={gameImg2} db={db}/>}/>
+              <Route exact path="/game-2" element={<Game gameImg={gameImg2} gameData={gameTwoData}/>}/>
             </Routes>
         </div>
       </Router>
