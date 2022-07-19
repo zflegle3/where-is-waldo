@@ -9,10 +9,10 @@ import { collection, getDoc } from "firebase/firestore";
 //     Link
 // } from "react-router-dom";
 import '../styles/Game.css';
+import Clock from "./Clock"
 
 
 function Game(props) {
-  const [selectDiameter, setSelectDiameter] = useState(50); //update to make responsive to page size
   const [selectDiv, setSelectDiv] = useState({
     xSelect: 0,
     ySelect: 0,
@@ -41,6 +41,7 @@ function Game(props) {
   const [classWhiteB, setClassWhiteB] = useState("score-item");
   const [classOdlaw, setClassOdlaw] = useState("score-item");
   const [classPopup, setClassPopup] = useState("select-div");
+  const [gameStatus, setGameStatus] = useState(true); //switch to false once all 3 found
 
 
 
@@ -103,6 +104,7 @@ function Game(props) {
     if (checkCorrect) {
       setCorrectGuess(e.target.id);
       //CHECK IF ALL FOUND TO END TIMER
+      checkGameEnd();
     }
   };
 
@@ -137,8 +139,6 @@ function Game(props) {
   }
 
   const setCorrectGuess = (selection) => {
-    //toggle div to correct
-    //update value to correct
     let updatedState;
     switch (selection) {
       case "waldo":
@@ -160,6 +160,19 @@ function Game(props) {
         setClassWhiteB("score-item correct")
         break;
     };
+  }
+
+
+  const checkGameEnd = () => {
+    //check status of all 3 items to be found/
+    if(waldoCoord.status && odlawCoord.status && whiteBCoord.status) {
+      console.log("Game End");
+      setGameStatus(false);
+          // if all found set clock timer off
+    //set game status to false to render popup form for variables
+    } else {
+      console.log("Keep Playing, game not over yet")
+    }
   }
 
 
@@ -216,7 +229,7 @@ function Game(props) {
             <p id="waldo-score" className={classWaldo}>Waldo</p>
             <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
             <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
-            <p id="odlaw-score" className="score-timer">0:00</p>
+            <Clock clockStatus={gameStatus}/>
           </div>
         </div>
       </div>
