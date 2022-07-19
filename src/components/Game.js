@@ -25,41 +25,41 @@ function Game(props) {
   const [waldoCoord, setWaldoCoord] = useState({
     locX: 0,
     locY: 0,
-    found: false,
+    status: false,
   });
   const [odlawCoord, setOdlawCoord] = useState({
     locX: 0,
     locY: 0,
-    found: false,
+    status: false,
   });
   const [whiteBCoord, setWhiteBCoord] = useState({
     locX: 0,
     locY: 0,
-    found: false,
+    status: false,
   });
+  const [classWaldo, setClassWaldo] = useState("score-item");
+  const [classWhiteB, setClassWhiteB] = useState("score-item");
+  const [classOdlaw, setClassOdlaw] = useState("score-item");
+
+
 
 
   const logClick = (e) => {
-    console.log(waldoCoord);
-    console.log(odlawCoord);
-    console.log(whiteBCoord);
+    console.log(e.pageX,e.target.offsetLeft);
+    console.log(e.pageY,e.target.offsetTop);
+    console.log(e.target.naturalHeight);
     console.log(e);
     let ratio = e.target.height/e.target.naturalHeight;
+    console.log(ratio);
     //Coordinates for Database Comparison (relative to real image size)
     let xCoord = (e.pageX - e.target.offsetLeft)/ratio;
-    let yCoord = (e.pageY - e.target.offsetTop)/ratio;
+    let yCoord = (e.pageY - e.target.offsetTop-(window.innerHeight*0.05))/ratio;
+    console.log(xCoord, yCoord);
     //Coordinates for Screen Display (relative to absolute pos in gameplaydiv )
     let xRel = e.pageX;
     let yRel = e.pageY-e.target.parentElement.offsetTop;
-    //might need to also sort by click type (if add player type selection)
-    //will need to update to make selectDiv location change with screen size change
-
-    //if no selected value already
-      //place selection div and update values
-    //else 
-      //clear select values & hide div
     if (selectDiv.xSelect===0 && selectDiv.ySelect===0) {
-      console.log("Add Selection");
+    //if no selected value already, place selection div and update values
       setSelectDiv({
         xSelect: xCoord,
         ySelect: yCoord,
@@ -69,8 +69,7 @@ function Game(props) {
         },
         selected: true,
       });
-    } else {
-      console.log("Remove Selection");
+    } else { //clear select values & hide div
       setSelectDiv({
           xSelect: 0,
           ySelect: 0,
@@ -83,23 +82,20 @@ function Game(props) {
     };
   };
 
+
   const logSelect = (e) => {
-    // console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
+    console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
     let guessIn = e.target.id;
-    let checkCorrect = checkGuess(selectDiv.xSelect, selectDiv.ySelect,guessIn)
+    let checkCorrect = checkGuess(selectDiv.xSelect, selectDiv.ySelect,guessIn);
     if (checkCorrect) {
-      //toggle div to correct
-      let updatingDiv = document.getElementById(`${e.target.id}-score`)
-      updatingDiv.classList.toggle("correct");
-      //update value to correct
+      setCorrectGuess(e.target.id);
+      //CHECK IF ALL FOUND TO END TIMER
     }
-    //
   };
 
   const checkGuess = (xGuess, yGuess, guessId) => {
     let correctX = 0;
     let correctY = 0;
-
     switch (guessId) {
       case "waldo":
         correctX = waldoCoord.locX;
@@ -114,7 +110,6 @@ function Game(props) {
         correctY = whiteBCoord.locY;
         break;
     };
-
     let validX = (correctX+75 >= xGuess && xGuess >=correctX-75);
     let validY = (correctY+75 >= yGuess && yGuess >=correctY-75);
     console.log("X)",validX,"min:",correctX-75,"guess:",xGuess,"max:",correctX+75);
@@ -126,8 +121,37 @@ function Game(props) {
       console.log("Incorrect");
       return false;
     }
-
   }
+
+  const setCorrectGuess = (selection) => {
+    //toggle div to correct
+    //update value to correct
+    let updatedState;
+    switch (selection) {
+      case "waldo":
+        updatedState = waldoCoord;
+        updatedState.status = true;
+        setWaldoCoord(updatedState);
+        setClassWaldo("score-item correct")
+        break;
+      case "odlaw":
+        updatedState = odlawCoord;
+        updatedState.status = true;
+        setOdlawCoord(updatedState);
+        setClassOdlaw("score-item correct")
+        break;
+      case "whitebeard":
+        updatedState = whiteBCoord;
+        updatedState.status = true;
+        setWhiteBCoord(updatedState);
+        setClassWhiteB("score-item correct")
+        break;
+    };
+  }
+
+
+
+
 
   async function pullWaldoData() {
     const docSnap = await getDoc(props.gameData);
@@ -137,14 +161,17 @@ function Game(props) {
       setWaldoCoord({
           locX: dataAll.waldoX,
           locY: dataAll.waldoY,
+          status: false,
       });
       setOdlawCoord({
         locX: dataAll.odlawX,
         locY: dataAll.odlawY,
+        status: false,
       });
       setWhiteBCoord({
         locX: dataAll.whitebeardX,
         locY: dataAll.whitebeardY,
+        status: false,
       });
     } else {
       console.log("No such document!");
@@ -174,13 +201,12 @@ function Game(props) {
           </div>
           <div className="score-div">
             <div className="score-display">
-              <p id="waldo-score">Waldo</p>
-              <p id="whitebeard-score">Whitebeard</p>
-              <p id="odlaw-score">Odlaw</p>
+              <p id="waldo-score" className={classWaldo}>Waldo</p>
+              <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
+              <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
             </div>
           </div>
         </div>
-
       </div>
     );
   } else {
@@ -190,9 +216,9 @@ function Game(props) {
           <img src={props.gameImg} alt="" onClick={logClick}></img>
           <div className="score-div">
             <div className="score-display">
-              <p>Waldo</p>
-              <p>Whitebeard</p>
-              <p>Odlaw</p>
+              <p id="waldo-score" className={classWaldo}>Waldo</p>
+              <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
+              <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
             </div>
           </div>
         </div>
