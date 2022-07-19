@@ -19,6 +19,11 @@
 
 .select-div {
     position: absolute;
+    visibility: hidden;
+}
+
+.select-div.visable {
+    visibility: visible;
 }
 
 .select-highlight {

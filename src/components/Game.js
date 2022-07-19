@@ -40,6 +40,7 @@ function Game(props) {
   const [classWaldo, setClassWaldo] = useState("score-item");
   const [classWhiteB, setClassWhiteB] = useState("score-item");
   const [classOdlaw, setClassOdlaw] = useState("score-item");
+  const [classPopup, setClassPopup] = useState("select-div");
 
 
 
@@ -69,7 +70,8 @@ function Game(props) {
         },
         selected: true,
       });
-    } else { //clear select values & hide div
+      setClassPopup("select-div visable");
+    } else { //clear select values & hide div, MAYBE REMOVE? NOW RESETTING ON SELECTION 
       setSelectDiv({
           xSelect: 0,
           ySelect: 0,
@@ -79,6 +81,7 @@ function Game(props) {
           },
           selected: false,
       });
+      setClassPopup("select-div");
     };
   };
 
@@ -87,6 +90,16 @@ function Game(props) {
     console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
     let guessIn = e.target.id;
     let checkCorrect = checkGuess(selectDiv.xSelect, selectDiv.ySelect,guessIn);
+    setClassPopup("select-div");
+    setSelectDiv({
+      xSelect: 0,
+      ySelect: 0,
+      locStyle: {
+        top: 0,
+        left: 0,
+      },
+      selected: false,
+    });
     if (checkCorrect) {
       setCorrectGuess(e.target.id);
       //CHECK IF ALL FOUND TO END TIMER
@@ -186,50 +199,29 @@ function Game(props) {
   },[]);
 
 
-  if (selectDiv.selected) {
-    return (
-      <div className="game-container">
-        <div className="gameplay">
-          <img src={props.gameImg} alt="" onClick={logClick}></img>
-          <div className="select-div" style={selectDiv.locStyle}>
-            <div className="select-highlight"></div>
-            <div className="select-options">
-              <div className="select-waldo" id="waldo" onClick={logSelect}>Waldo</div>
-              <div className="select-waldo" id="whitebeard" onClick={logSelect}>Whitebeard</div>
-              <div className="select-Ols" id="odlaw" onClick={logSelect}>Odlaw</div>
-            </div>
+  return (
+    <div className="game-container">
+      <div className="gameplay">
+        <img src={props.gameImg} alt="" onClick={logClick}></img>
+        <div className={classPopup} style={selectDiv.locStyle}>
+          <div className="select-highlight"></div>
+          <div className="select-options">
+            <div className="select-waldo" id="waldo" onClick={logSelect}>Waldo</div>
+            <div className="select-waldo" id="whitebeard" onClick={logSelect}>Whitebeard</div>
+            <div className="select-Ols" id="odlaw" onClick={logSelect}>Odlaw</div>
           </div>
-          <div className="score-div">
-            <div className="score-display">
-              <p id="waldo-score" className={classWaldo}>Waldo</p>
-              <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
-              <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
-            </div>
+        </div>
+        <div className="score-div">
+          <div className="score-display">
+            <p id="waldo-score" className={classWaldo}>Waldo</p>
+            <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
+            <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
+            <p id="odlaw-score" className="score-timer">0:00</p>
           </div>
         </div>
       </div>
-    );
-  } else {
-    return (
-      <div className="game-container">
-        <div className="gameplay">
-          <img src={props.gameImg} alt="" onClick={logClick}></img>
-          <div className="score-div">
-            <div className="score-display">
-              <p id="waldo-score" className={classWaldo}>Waldo</p>
-              <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
-              <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-
-  }
-
+    </div>
+  );
   }
   
   export default Game;
-
-
-  //{props.gameImg}
