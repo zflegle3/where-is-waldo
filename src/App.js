@@ -7,9 +7,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
+
+//React Components
 import Home from "./components/Home";
 import Game from "./components/Game";
 import Leaderboard from "./components/Leaderboard";
+
 //Images
 import gameImg1 from './images/space-waldo.jpg';
 import gameImg2 from './images/ski-waldo.jpg';
@@ -62,7 +65,7 @@ function App() {
         <div className="main-content">
           <Routes>
               <Route exact path="/" element={<Home gameImg1={gameImg1} gameImg2={gameImg2}/>}/>
-              <Route exact path="/leaderboard" element={<Leaderboard/>}/>
+              <Route exact path="/leaderboard" element={<Leaderboard lb1={gameOneLB} lb2={gameOneLB}/>}/>
               <Route exact path="/game-1" element={<Game gameImg={gameImg1} gameData={gameOneData} scoreData={gameOneLB}/>}/>
               <Route exact path="/game-2" element={<Game gameImg={gameImg2} gameData={gameTwoData} scoreData={gameTwoLB}/>}/>
             </Routes>
