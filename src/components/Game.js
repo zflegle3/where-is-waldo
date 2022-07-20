@@ -1,7 +1,7 @@
 /* eslint-disable default-case */
 import React, { useState, useEffect } from 'react';
 // import { doc, getDoc } from "firebase/firestore";
-import { collection, getDoc } from "firebase/firestore"; 
+import { addDoc, collection, getDoc } from "firebase/firestore"; 
 // import {
 //     BrowserRouter as Router,
 //     Routes,
@@ -10,6 +10,7 @@ import { collection, getDoc } from "firebase/firestore";
 // } from "react-router-dom";
 import '../styles/Game.css';
 import Clock from "./Clock"
+import InForm from "./InForm"
 
 
 function Game(props) {
@@ -41,22 +42,19 @@ function Game(props) {
   const [classWhiteB, setClassWhiteB] = useState("score-item");
   const [classOdlaw, setClassOdlaw] = useState("score-item");
   const [classPopup, setClassPopup] = useState("select-div");
+  const [classEndGame, setClassEndGame] = useState("end-game");
   const [gameStatus, setGameStatus] = useState(true); //switch to false once all 3 found
+  const [scoreStatus, setScoreStatus] = useState(false); //switch to false once all 3 found
+  const [playerScore, setPlayerScore] = useState(0);
 
 
 
 
   const logClick = (e) => {
-    console.log(e.pageX,e.target.offsetLeft);
-    console.log(e.pageY,e.target.offsetTop);
-    console.log(e.target.naturalHeight);
-    console.log(e);
     let ratio = e.target.height/e.target.naturalHeight;
-    console.log(ratio);
     //Coordinates for Database Comparison (relative to real image size)
     let xCoord = (e.pageX - e.target.offsetLeft)/ratio;
     let yCoord = (e.pageY - e.target.offsetTop-(window.innerHeight*0.05))/ratio;
-    console.log(xCoord, yCoord);
     //Coordinates for Screen Display (relative to absolute pos in gameplaydiv )
     let xRel = e.pageX;
     let yRel = e.pageY-e.target.parentElement.offsetTop;
@@ -88,7 +86,6 @@ function Game(props) {
 
 
   const logSelect = (e) => {
-    console.log(e.target.id,`at ${selectDiv.xSelect},${selectDiv.ySelect}`);
     let guessIn = e.target.id;
     let checkCorrect = checkGuess(selectDiv.xSelect, selectDiv.ySelect,guessIn);
     setClassPopup("select-div");
@@ -127,13 +124,9 @@ function Game(props) {
     };
     let validX = (correctX+75 >= xGuess && xGuess >=correctX-75);
     let validY = (correctY+75 >= yGuess && yGuess >=correctY-75);
-    console.log("X)",validX,"min:",correctX-75,"guess:",xGuess,"max:",correctX+75);
-    console.log("Y)",validY,"min:",correctY-75,"guess:",yGuess,"max:",correctY+75);
     if (validX && validY) {
-      console.log("Correct")
       return true;;
     } else {
-      console.log("Incorrect");
       return false;
     }
   }
@@ -166,23 +159,24 @@ function Game(props) {
   const checkGameEnd = () => {
     //check status of all 3 items to be found/
     if(waldoCoord.status && odlawCoord.status && whiteBCoord.status) {
-      console.log("Game End");
       setGameStatus(false);
-          // if all found set clock timer off
-    //set game status to false to render popup form for variables
+      setClassEndGame("end-game game-over");
     } else {
-      console.log("Keep Playing, game not over yet")
     }
   }
 
-
-
+  const submitPlayerData = (e) => {
+    e.preventDefault();
+    let playerName = document.getElementById("player-name");
+    if (playerName.value) {
+      addScoreData(playerName.value);
+    } 
+  }
 
 
   async function pullWaldoData() {
     const docSnap = await getDoc(props.gameData);
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
       const dataAll = docSnap.data();
       setWaldoCoord({
           locX: dataAll.waldoX,
@@ -200,16 +194,25 @@ function Game(props) {
         status: false,
       });
     } else {
-      console.log("No such document!");
     }
+  }
+
+  async function addScoreData(playerName) {
+    const newDoc = await addDoc(props.scoreData, {
+      name: playerName,
+      score: playerScore,
+    });
+    // console.log("New doc created and added to leaderboard,",newDoc);
+    setScoreStatus(true);
   }
 
 
   useEffect(() => {
     //pull in location data from firebase on page load
-    console.log("Pulling data from Database");
+    // console.log("Pulling data from Database");
     pullWaldoData();
   },[]);
+
 
 
   return (
@@ -229,8 +232,11 @@ function Game(props) {
             <p id="waldo-score" className={classWaldo}>Waldo</p>
             <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
             <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
-            <Clock clockStatus={gameStatus}/>
+            <Clock clockStatus={gameStatus} setPlayerScore={setPlayerScore}/>
           </div>
+        </div>
+        <div className={classEndGame}> 
+          <InForm scoreStatus={scoreStatus} submitPlayerData={submitPlayerData} playerScore={playerScore}/>
         </div>
       </div>
     </div>

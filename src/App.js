@@ -16,7 +16,7 @@ import gameImg2 from './images/ski-waldo.jpg';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, doc } from "firebase/firestore";
+import { getFirestore, doc, collection } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -32,6 +32,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const gameOneData = doc(db,"scoring/game-one");
 const gameTwoData = doc(db,"scoring/game-two");
+const gameOneLB = collection(db, "game-one-leaderboard")
+const gameTwoLB = collection(db, "game-two-leaderboard")
 
 function App() {
 
@@ -61,8 +63,8 @@ function App() {
           <Routes>
               <Route exact path="/" element={<Home gameImg1={gameImg1} gameImg2={gameImg2}/>}/>
               <Route exact path="/leaderboard" element={<Leaderboard/>}/>
-              <Route exact path="/game-1" element={<Game gameImg={gameImg1} gameData={gameOneData}/>}/>
-              <Route exact path="/game-2" element={<Game gameImg={gameImg2} gameData={gameTwoData}/>}/>
+              <Route exact path="/game-1" element={<Game gameImg={gameImg1} gameData={gameOneData} scoreData={gameOneLB}/>}/>
+              <Route exact path="/game-2" element={<Game gameImg={gameImg2} gameData={gameTwoData} scoreData={gameTwoLB}/>}/>
             </Routes>
         </div>
       </Router>
