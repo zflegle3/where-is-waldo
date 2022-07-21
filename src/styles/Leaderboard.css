@@ -1,0 +1,63 @@
+.leaderboard {
+    display: grid;
+    grid-template-rows: [one] 1fr [two] 1fr [three] 16fr ;
+    height: 95vh;
+
+}
+
+.leaderboard-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem
+}
+
+.leaderboard-nav button {
+    font-size: 2rem;
+    padding: 0.5rem;
+
+}
+
+
+.leaderboard-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5rem
+}
+
+.leaderboard-header h1 {
+    font-size: 3rem;
+}
+
+.leaderboard-header h1 {
+    font-size: 3rem;
+}
+
+
+.leaderboard-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem
+}
+
+.leaderboard-display li {
+    min-width: 400px;
+    display: grid;
+    grid-template-columns: [one] 1fr [two] 2fr [three] 3fr;
+    gap: 1rem;
+    border-bottom: 1px solid black;
+}
+
+.leaderboard-display p {
+    font-size: 1.5rem;
+    padding-top: 0.5rem;
+}
+
+
+
+
+
+

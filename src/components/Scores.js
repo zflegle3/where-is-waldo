@@ -6,16 +6,21 @@ function Leaderboard(props) {
     const testItems = props.dataArr;
     console.log(testItems);
 
+    let i = 0;
     const scoreDivs = testItems.map((item) =>
-        <li>test</li>
+        <li>
+            <p>{i++}</p>
+            <p> {item.name}</p>
+            <p> {item.score} seconds</p>
+        </li>
     );
 
+    console.log(scoreDivs);
+
     return (
-        <div className="leaderboard-display">
-            <ul>
-                {scoreDivs}
-            </ul>
-        </div>
+        <ul className="leaderboard-display">
+            {scoreDivs}
+        </ul>
 
     );
   }
