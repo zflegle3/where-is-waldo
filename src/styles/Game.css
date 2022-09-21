@@ -1,7 +1,7 @@
 .game-container{
     width:100vw;
     min-height: 100vh;
-    background-color: var(--misc-two);
+    background-color: var(--main-bckgnd);
 }
 
 .gameplay {
@@ -60,25 +60,19 @@
 }
 
 .score-div {
-    /* top: -10vh;
-    left: 20vw;
-    width: 60vw;
-    height: 10vh;
-    z-index: 2; */
-    /* border: 2px solid red; */
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    background-color: var(--sh-dk);
+    background-color: #ffffff;
     padding: 1rem 2rem 1rem 2rem;
     border-radius: 2rem;
 }
 
 
 .score-div p {
-    font-size: 2.5rem;
+    font-size: 2rem;
     padding: 0rem 0.75rem 0rem 0.75rem;
     border-radius: .5rem;
 }
@@ -176,15 +170,14 @@
 
 .svg-container {
     position: relative;
-    width: 2.5rem;
+    width: 2rem;
 }
 
 .svg-container svg {
-    /* width: 100%; */
     position: absolute;
     top: 0px;
     left: 0px;
-    transform: scale(1);
+    transform: scale(0.8);
     fill: transparent;
 }
 

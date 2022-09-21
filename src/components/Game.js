@@ -1,15 +1,8 @@
-/* eslint-disable default-case */
 import React, { useState, useEffect } from 'react';
-// import { doc, getDoc } from "firebase/firestore";
-import { addDoc, collection, getDoc } from "firebase/firestore"; 
-// import {
-//     BrowserRouter as Router,
-//     Routes,
-//     Route,
-//     Link
-// } from "react-router-dom";
+import { addDoc, getDoc } from "firebase/firestore"; 
+
 import '../styles/Game.css';
-import Clock from "./Clock"
+
 import InForm from "./InForm"
 import NavBarPlay from "./NavBarPlay";
 
@@ -99,7 +92,6 @@ function Game(props) {
       },
       selected: false,
     });
-    console.log(checkCorrect);
     if (checkCorrect) {
       setCorrectGuess(guessIn);
       //CHECK IF ALL FOUND TO END TIMER
@@ -108,7 +100,6 @@ function Game(props) {
   };
 
   const checkGuess = (xGuess, yGuess, guessId) => {
-    console.log(xGuess, yGuess, guessId);
     let correctX = 0;
     let correctY = 0;
     switch (guessId) {
@@ -205,14 +196,12 @@ function Game(props) {
       name: playerName,
       score: playerScore,
     });
-    // console.log("New doc created and added to leaderboard,",newDoc);
     setScoreStatus(true);
   }
 
 
   useEffect(() => {
     //pull in location data from firebase on page load
-    // console.log("Pulling data from Database");
     pullWaldoData();
   },[]);
 
@@ -244,10 +233,3 @@ function Game(props) {
   }
   
   export default Game;
-
-
-    //props.classWaldo
-    //props.classWhiteB
-    //props.classOdlaw
-    //props.setPlayerScore()
-    //props.gameStatus

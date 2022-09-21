@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 
-function Home(props) {
+function Clock(props) {
     const [time, setTime] = useState(0);
     //props.clockStatus
     //props.setPlayerScore
@@ -20,4 +20,4 @@ function Home(props) {
   );
 }
 
-export default Home;
+export default Clock;

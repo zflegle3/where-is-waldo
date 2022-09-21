@@ -4,7 +4,7 @@
     display: grid;
     grid-template-columns: repeat(2,1fr);
     grid-template-rows: repeat(2,1fr);
-    background-color: var(--misc-two);
+    background-color: var(--main-bckgnd);
 }
 .game-links-all a {
     margin: 3rem 3rem 3rem 3rem;

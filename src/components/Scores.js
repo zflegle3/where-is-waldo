@@ -1,7 +1,4 @@
-import React, { useState } from 'react';
-
-
-function Leaderboard(props) {
+function Scores(props) {
     //props.dataArr
     const testItems = props.dataArr;
     console.log(testItems);
@@ -33,4 +30,4 @@ function Leaderboard(props) {
     );
   }
   
-  export default Leaderboard;
+  export default Scores;

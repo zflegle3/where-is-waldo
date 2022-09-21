@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
 import {
     BrowserRouter as Router,
     Routes,
     Route,
     Link
-  } from "react-router-dom";
+} from "react-router-dom";
+
 import { ReactComponent as LogoSvg } from '../images/logo.svg';
 import { ReactComponent as CheckSvg } from '../images/check.svg';
 import { ReactComponent as CircleSvg } from '../images/circle.svg';
 import waldoImg from '../images/waldo.png';
 import odlawImg from '../images/odlaw.jpg';
 import whiteBImg from '../images/whitebeard.jpg';
+
 import Clock from "./Clock";
 
 
@@ -22,7 +23,6 @@ function NavBarPlay(props) {
     //props.setPlayerScore()
     //props.cgameStatus
 
-    console.log(props.classWaldo);
     return (
         <div className="header">
           <Link to="/" className="header-logo-all">

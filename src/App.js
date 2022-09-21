@@ -1,29 +1,25 @@
-
-import './styles/App.css';
-import { v4 as uuidv4 } from 'uuid';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Link
 } from "react-router-dom";
+import { initializeApp } from "firebase/app";
+import { getFirestore, doc, collection } from "firebase/firestore";
 
 //React Components
 import Home from "./components/Home";
 import Game from "./components/Game";
 import Leaderboard from "./components/Leaderboard";
-import NavBar from "./components/NavBar";
 
 //Images & SVGs
 import gameImg1 from './images/space-waldo.jpg';
 import gameImg2 from './images/ski-waldo.jpg';
 
+//Styles
+import './styles/App.css';
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, collection } from "firebase/firestore";
-
-// Your web app's Firebase configuration
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD1Arhz8cd9xErbGLPmI4Nj7OpFKdCafiM",
   authDomain: "where-s-waldo-6a910.firebaseapp.com",

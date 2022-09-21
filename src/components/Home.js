@@ -5,7 +5,9 @@ import {
     Route,
     Link
 } from "react-router-dom";
+
 import NavBar from "./NavBar";
+
 import '../styles/Home.css';
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 
 function InForm(props) {
@@ -8,15 +8,12 @@ function InForm(props) {
     //props.playerScore
     //props.submitPlayerData()
 
-    //if data has not yet been submitted, create form to add date
 
     const handleSubmit = (e) =>  {
         e.preventDefault();
 
-
         let playerName = document.getElementById("player-name");
         let errorEl = document.getElementById("error-text");
-        console.log(errorEl, playerName);
         errorEl.classList = "";
         errorEl.innerHTML = "";
 
@@ -45,7 +42,7 @@ function InForm(props) {
 
             </form>
         );
-    //else display reset info to play again
+    //else display reset instructions to play again
     } else {
         return (
             <div className="leaderboard-in">
