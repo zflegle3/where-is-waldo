@@ -19,6 +19,7 @@ import gameImg2 from './images/ski-waldo.jpg';
 //Styles
 import './styles/App.css';
 
+
 // Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyD1Arhz8cd9xErbGLPmI4Nj7OpFKdCafiM",
@@ -39,9 +40,8 @@ const gameTwoLB = collection(db, "game-two-leaderboard")
 function App() {
 
   return (
-    <div className="App">
-      <Router>
-
+    <Router basename={process.env.PUBLIC_URL}>
+      <div className="App">
         <div className="main-content">
           <Routes>
               <Route exact path="/" element={<Home gameImg1={gameImg1} gameImg2={gameImg2}/>}/>
@@ -50,9 +50,10 @@ function App() {
               <Route exact path="/game-2" element={<Game gameImg={gameImg2} gameData={gameTwoData} scoreData={gameTwoLB}/>}/>
           </Routes>
         </div>
-      </Router>
 
-    </div>
+
+      </div>
+    </Router>
   );
 }
 
