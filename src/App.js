@@ -12,10 +12,12 @@ import {
 import Home from "./components/Home";
 import Game from "./components/Game";
 import Leaderboard from "./components/Leaderboard";
+import NavBar from "./components/NavBar";
 
-//Images
+//Images & SVGs
 import gameImg1 from './images/space-waldo.jpg';
 import gameImg2 from './images/ski-waldo.jpg';
+
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -43,24 +45,6 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <div className="header">
-          <Link to="/" className="header-logo-all">
-              <h1 className="header-title">Shop Title</h1>
-              <div className="header-logo">
-                <img src="" alt=""></img>
-              </div>
-          </Link>
-          <ul className="header-nav">
-
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-
-            <li>
-              <Link to="/leaderboard">Leaderboard</Link>
-            </li>
-          </ul>
-        </div>
 
         <div className="main-content">
           <Routes>
@@ -68,7 +52,7 @@ function App() {
               <Route exact path="/leaderboard" element={<Leaderboard lb1={gameOneLB} lb2={gameTwoLB}/>}/>
               <Route exact path="/game-1" element={<Game gameImg={gameImg1} gameData={gameOneData} scoreData={gameOneLB}/>}/>
               <Route exact path="/game-2" element={<Game gameImg={gameImg2} gameData={gameTwoData} scoreData={gameTwoLB}/>}/>
-            </Routes>
+          </Routes>
         </div>
       </Router>
 

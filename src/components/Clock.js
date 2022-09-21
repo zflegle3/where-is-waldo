@@ -16,7 +16,7 @@ function Home(props) {
     });
 
   return (
-    <p className="score-timer">{time}</p>
+    <p className="score-timer">{time} sec.</p>
   );
 }
 

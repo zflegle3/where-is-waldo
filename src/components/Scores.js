@@ -6,22 +6,30 @@ function Leaderboard(props) {
     const testItems = props.dataArr;
     console.log(testItems);
 
-    let i = 0;
+    let i = 1;
     const scoreDivs = testItems.map((item) =>
-        <li>
-            <p>{i++}</p>
-            <p> {item.name}</p>
-            <p> {item.score} seconds</p>
-        </li>
+        <tr className="leaderboard-row">
+            <th>{i++}</th>
+            <th>{item.name}</th>
+            <th>{item.score}</th>
+        </tr>
     );
 
     console.log(scoreDivs);
 
     return (
-        <ul className="leaderboard-display">
-            {scoreDivs}
-        </ul>
-
+        <div className="leaderboard-container">
+            <table className="leaderboard-table">
+                <thead className="leaderboard-header">
+                <tr className="leaderboard-row-header">
+                    <th>Rank</th>
+                    <th>Player Name</th>
+                    <th>Score (seconds)</th>
+                </tr>
+                </thead>
+                {scoreDivs}
+            </table>  
+        </div>
     );
   }
   

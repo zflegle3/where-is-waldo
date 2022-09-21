@@ -11,6 +11,7 @@ import { addDoc, collection, getDoc } from "firebase/firestore";
 import '../styles/Game.css';
 import Clock from "./Clock"
 import InForm from "./InForm"
+import NavBarPlay from "./NavBarPlay";
 
 
 function Game(props) {
@@ -54,7 +55,7 @@ function Game(props) {
     let ratio = e.target.height/e.target.naturalHeight;
     //Coordinates for Database Comparison (relative to real image size)
     let xCoord = (e.pageX - e.target.offsetLeft)/ratio;
-    let yCoord = (e.pageY - e.target.offsetTop-(window.innerHeight*0.05))/ratio;
+    let yCoord = (e.pageY - e.target.offsetTop-(window.innerHeight*0.10))/ratio;
     //Coordinates for Screen Display (relative to absolute pos in gameplaydiv )
     let xRel = e.pageX;
     let yRel = e.pageY-e.target.parentElement.offsetTop;
@@ -87,7 +88,7 @@ function Game(props) {
 
   const logSelect = (e) => {
     let guessIn = e.target.id;
-    let checkCorrect = checkGuess(selectDiv.xSelect, selectDiv.ySelect,guessIn);
+    let checkCorrect = checkGuess(selectDiv.xSelect, selectDiv.ySelect, guessIn);
     setClassPopup("select-div");
     setSelectDiv({
       xSelect: 0,
@@ -98,14 +99,16 @@ function Game(props) {
       },
       selected: false,
     });
+    console.log(checkCorrect);
     if (checkCorrect) {
-      setCorrectGuess(e.target.id);
+      setCorrectGuess(guessIn);
       //CHECK IF ALL FOUND TO END TIMER
       checkGameEnd();
     }
   };
 
   const checkGuess = (xGuess, yGuess, guessId) => {
+    console.log(xGuess, yGuess, guessId);
     let correctX = 0;
     let correctY = 0;
     switch (guessId) {
@@ -138,19 +141,19 @@ function Game(props) {
         updatedState = waldoCoord;
         updatedState.status = true;
         setWaldoCoord(updatedState);
-        setClassWaldo("score-item correct")
+        setClassWaldo("score-item correct");
         break;
       case "odlaw":
         updatedState = odlawCoord;
         updatedState.status = true;
         setOdlawCoord(updatedState);
-        setClassOdlaw("score-item correct")
+        setClassOdlaw("score-item correct");
         break;
       case "whitebeard":
         updatedState = whiteBCoord;
         updatedState.status = true;
         setWhiteBCoord(updatedState);
-        setClassWhiteB("score-item correct")
+        setClassWhiteB("score-item correct");
         break;
     };
   }
@@ -213,34 +216,38 @@ function Game(props) {
     pullWaldoData();
   },[]);
 
-
-
   return (
     <div className="game-container">
+      <NavBarPlay classWaldo={classWaldo} classWhiteB={classWhiteB} classOdlaw={classOdlaw} gameStatus={gameStatus} setPlayerScore={setPlayerScore}  />
       <div className="gameplay">
+
         <img src={props.gameImg} alt="" onClick={logClick}></img>
+
         <div className={classPopup} style={selectDiv.locStyle}>
+
           <div className="select-highlight"></div>
+
           <div className="select-options">
             <div className="select-waldo" id="waldo" onClick={logSelect}>Waldo</div>
             <div className="select-waldo" id="whitebeard" onClick={logSelect}>Whitebeard</div>
             <div className="select-Ols" id="odlaw" onClick={logSelect}>Odlaw</div>
           </div>
         </div>
-        <div className="score-div">
-          <div className="score-display">
-            <p id="waldo-score" className={classWaldo}>Waldo</p>
-            <p id="whitebeard-score" className={classWhiteB}>Whitebeard</p>
-            <p id="odlaw-score" className={classOdlaw}>Odlaw</p>
-            <Clock clockStatus={gameStatus} setPlayerScore={setPlayerScore}/>
-          </div>
-        </div>
+        
         <div className={classEndGame}> 
           <InForm scoreStatus={scoreStatus} submitPlayerData={submitPlayerData} playerScore={playerScore}/>
         </div>
+
       </div>
     </div>
   );
   }
   
   export default Game;
+
+
+    //props.classWaldo
+    //props.classWhiteB
+    //props.classOdlaw
+    //props.setPlayerScore()
+    //props.gameStatus

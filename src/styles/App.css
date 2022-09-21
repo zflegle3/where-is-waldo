@@ -40,17 +40,39 @@ table {
 	border-spacing: 0;
 }
 
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 * {
   box-sizing: border-box;
   font-size: 10px;
+
+
   --main-text: #2B4570;
-  --main-bckgnd: #7180AC;
-  --sub-text: #E49273;
+  --sub-text-lt: #ffffff;
+  --sub-text-dk: #909090;
+  --highlight-text: #E49273;
+
+  --main-bckgnd: #2b2b2b;
   --sub-bckgnd: #A8D0DB;
+
+  --g1: rgb(8, 137, 8);
+  --error-red: rgb(202, 8, 8);
+
+
+  --sh-lt: rgba(255,255,255,0.25);
+  --sh-dk: rgba(0, 0, 0, 0.15);
+
+
+
+
+  
+  --sub-text: #E49273;
+  
   --misc-one: #6E0E0A;
-  --misc-two: #F0F0C9;
+  --misc-two: #2b2b2b;
   --misc-three: #F2BB05;
   --misc-four: #D74E09;
+  font-family: 'Roboto', sans-serif;
 }
 
 
@@ -60,20 +82,69 @@ Main Container Styles
 
 .header {
   width: 100vw;
-  height: 5vh;
+  height: 10vh;
   display: flex;
   background-color: var(--sub-bckgnd);
+  position: sticky;
+  top: 0px;
+  z-index: 1;
   /* position: fixed;
   z-index: 10; */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }
+
 .main-content {
+  position: absolute;
   width: 100vw;
-  height: 95vh;
+  height: 60vh;
 }
 
 /* ~~~~~~~~~~~~~~~~
 Header Styles
 ~~~~~~~~~~~~~~~~ */
+
+.header-logo-all {
+  position: relative;
+  /* width: 100%; */
+  height: 100%;
+  /* overflow-y: hidden; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 1rem; */
+}
+
+.header-logo-all svg {
+  position: relative;
+  height: 18vh;
+  transition: all 0.3s;
+}
+
+.header-logo-all:hover svg {
+  transform: scale(1.1);
+  transition: all 0.3s;
+}
+
+.leaderboard-link {
+  padding: 1rem;
+  font-size: 2rem;
+  text-decoration: none;
+  color: var(--main-text);
+  transition: all 0.3s;
+}
+
+.leaderboard-link:hover {
+  transform: scale(1.1);
+  transition: all 0.3s;
+  color: var(--highlight-text);
+}
+
+
 
 
 

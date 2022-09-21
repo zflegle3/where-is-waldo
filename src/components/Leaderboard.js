@@ -8,6 +8,7 @@ import {
 import { query, collection, orderBy, limit, getDocs, docs, data} from "firebase/firestore"; 
 import '../styles/Leaderboard.css';
 import Scores from "./Scores";
+import NavBar from "./NavBar";
 
 
 function Leaderboard(props) {
@@ -79,15 +80,13 @@ function Leaderboard(props) {
 
     return (
       <div className="leaderboard">
+        <NavBar />
         <div className="leaderboard-nav">
-          <button id="game-one" onClick={selectLeaderboard}>Game One</button>
-          <button id="game-two" onClick={selectLeaderboard}>Game Two</button>
+          <button id="game-one" onClick={selectLeaderboard}>Outer Space</button>
+          <button id="game-two" onClick={selectLeaderboard}>Ski Mountain</button>
         </div>
-        <div className="leaderboard-header">
-          <h1>Player</h1>
-          <h1>{"Score (seconds)"}</h1>
-        </div>
-        <Scores dataArr={displayData} />
+
+        <Scores dataArr={displayData} />   
       </div>
 
     );

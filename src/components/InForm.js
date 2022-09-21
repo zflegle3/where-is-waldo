@@ -8,18 +8,41 @@ function InForm(props) {
     //props.playerScore
     //props.submitPlayerData()
 
-    useEffect(() => {
-
-    });
-
     //if data has not yet been submitted, create form to add date
+
+    const handleSubmit = (e) =>  {
+        e.preventDefault();
+
+
+        let playerName = document.getElementById("player-name");
+        let errorEl = document.getElementById("error-text");
+        console.log(errorEl, playerName);
+        errorEl.classList = "";
+        errorEl.innerHTML = "";
+
+        if (playerName.value.length < 1) {
+            errorEl.classList = "error-active";
+            errorEl.innerHTML = "Player name must not be empty to submit a score";
+        } else if (playerName.value.length > 20) {
+            errorEl.classList = "error-active";
+            errorEl.innerHTML = "Player name must not be longer than 20 characters";
+        } else {
+            props.submitPlayerData(e);
+        };
+    }
+
+
     if (!props.scoreStatus) {
         return(
             <form className="leaderboard-in">
-                <p>Congrats, you won in {props.playerScore} seconds.</p>
+                <p>Congrats! You won in {props.playerScore} seconds.</p>
                 <p>Enter your name below and click submit to add your score to the leaderboard.</p>
-                <input type="text" id="player-name" placeholder="Name"></input>
-                <button onClick={props.submitPlayerData}>Submit</button>
+                <div>
+                    <input type="text" id="player-name" placeholder="Name"></input>
+                    <button onClick={handleSubmit}>Submit</button>
+                </div>
+                <p id="error-text"></p>
+
             </form>
         );
     //else display reset info to play again
