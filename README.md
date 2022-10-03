@@ -3,11 +3,11 @@
 [Live Demo Here!](https://zflegle3.github.io/where-is-waldo/)
 
 ## Summary
-This project, made with React and Firebase, was built as part of The Odin Project JavaScript curriculum to practice using as backend to store data. This application allows users to play the game Where's Waldo by selecting locations on the gameboard where they think the 3 hidden characters are located. The selected coordinates are then compared with the character coordinates stored with a Firebase database to determine if the selection was correct. Checkout the demo link above and the gameplay instuctions below to give it a try!
+This project, made with React and Firebase, was built as part of The Odin Project Fullstack JavaScript curriculum to practice using a backend to store data. This application allows users to play the game Where's Waldo by selecting locations on the gameboard where they think the 3 hidden characters are located. The selected coordinates are then compared with the character coordinates stored with a Firebase database to determine if the selection was correct. Checkout the demo link above and the gameplay instuctions below to give it a try!
 
 ## Features
 * Where's Waldo gameplay with two different levels
-* Score submission with form validation and without requiring player login
+* Score submission without requiring player login
 * High Score Leaderboard display filtered by the game played and sorted by player score
 * Firebase Cloud Firestore datbase to store game data and high score data
 
