@@ -3,7 +3,7 @@
 [Live Demo Here!](https://zflegle3.github.io/where-is-waldo/)
 
 ## Summary
-This project, made with React and Firebase, was built as part of The Odin Project Fullstack JavaScript curriculum to practice using a backend to store data. This application allows users to play the game Where's Waldo by selecting locations on the gameboard where they think the 3 hidden characters are located. The selected coordinates are then compared with the character coordinates stored with a Firebase database to determine if the selection was correct. Checkout the demo link above and the gameplay instuctions below to give it a try!
+This project was built as part of The Odin Project Fullstack JavaScript curriculum to practice using a backend to store data. It allows users to play the game Where's Waldo by selecting locations on the gameboard where they think the 3 hidden characters are located. The selected coordinates are compared with the character's actual coordinates to determine if the selection was correct. Checkout the demo link above and the gameplay instuctions below to give it a try!
 
 ## Features
 * Where's Waldo gameplay with two different levels
@@ -18,7 +18,7 @@ This project, made with React and Firebase, was built as part of The Odin Projec
 * CSS
 
 ## Gameplay Example
-1. Select a game by clicking the image of the desired gameboard.
+1. Select a level by clicking the image of the desired gameboard.
 
 ![demo image](https://raw.githubusercontent.com/zflegle3/where-is-waldo/main/src/images/demo1.png)
 
@@ -26,6 +26,6 @@ This project, made with React and Firebase, was built as part of The Odin Projec
 
 ![demo image](https://raw.githubusercontent.com/zflegle3/where-is-waldo/main/src/images/demo3.png)
 
-3. Once all 3 characters have been found submit your name using the pop-up submission form.
+3. Once all 3 characters have been found submit your name using the submission form modal.
 
 4. Select the "leaderboard" tab to display the high scores or select the "Where's Waldo" icon to return home and play again.
